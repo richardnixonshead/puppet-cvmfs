@@ -56,6 +56,7 @@ describe 'cvmfs' do
       it { should contain_class('cvmfs::config') }
       it { should contain_class('cvmfs::service') }
       it { should contain_service('autofs') }
+      it { should contain_exec('Reloading cvmfs').with_timeout(300) }
 
       # cvmfs-config repository should be disable by default.
       #
@@ -100,6 +101,11 @@ describe 'cvmfs' do
             cvmfs_quota_ratio: '0.5' }
         end
         it { should contain_concat__fragment('cvmfs_default_local_header').with_content(%r{^CVMFS_QUOTA_LIMIT='5000000'$}) }
+      end
+
+      context 'with cvmfs_reload_timeout set' do
+        let(:params) { { cvmfs_reload_timeout: 0 } }
+        it { should contain_exec('Reloading cvmfs').with_timeout(0) }
       end
 
       context 'with cvmfs_yum_gpgcheck set to 0' do

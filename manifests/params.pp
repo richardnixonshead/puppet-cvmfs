@@ -57,6 +57,7 @@ class cvmfs::params {
   $cvmfs_use_geoapi       = undef
   $cvmfs_env_variables    = undef
   $cvmfs_follow_redirects = undef
+  $cvmfs_reload_timeout   = 300
 
   #The version of cvmfs to install, should be present and latest,
   # or an exact version number of the package.

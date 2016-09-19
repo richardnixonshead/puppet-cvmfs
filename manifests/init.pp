@@ -34,6 +34,7 @@ class cvmfs (
   $cvmfs_follow_redirects     = $cvmfs::params::cvmfs_follow_redirects,
   $cvmfs_yum_manage_repo      = $cvmfs::params::cvmfs_yum_manage_repo,
   $cvmfs_repo_list            = $cvmfs::params::cvmfs_repo_list,
+  $cvmfs_reload_timeout       = $cvmfs::params::cvmfs_reload_timeout,
 ) inherits cvmfs::params {
 
   # Deprecations
@@ -47,6 +48,7 @@ class cvmfs (
 
   validate_re($mount_method,['^autofs$','^mount$','^none$'],'$mount_method must be one of autofs (default), mount or none')
 
+  validate_integer($cvmfs_reload_timeout)
   anchor{'cvmfs::begin':} ->
   class{'::cvmfs::install':} ->
   class{'::cvmfs::config':} ~>

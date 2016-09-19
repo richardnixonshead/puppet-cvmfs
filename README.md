@@ -70,6 +70,8 @@ cvmfs::mount{'myrepo.example.org':
    skips all mounting.
    Note that migrating between for instance *autofs* and then *mount* is not supported.
 * `manage_autofs_service` boolean defaults to true, should the autofs service be maintained.
+* `cvmfs_reload_timeout` timeout for cvmfs_config reload. Defaults to puppet
+   default of 300 seconds on execs. Set to 0 for no timeout.
 * `cvmfs_quota_limit` The cvmfs quota size in megabytes. See params.pp for default.
 * `cvmfs_quota_ratio` If set to ration, e.g '0.8' then 0.8 of the partition size
    the cvmfs cache is on will be used. Setting this assumes
