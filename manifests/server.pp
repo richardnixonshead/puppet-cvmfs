@@ -37,11 +37,11 @@ class cvmfs::server (
   $user     = 'shared',
   $nofiles  = 65000,
   $uid      = 101,
-  $cvmfs_yum_kernel         = $cvmfs::params::cvmfs_yum_kernel,
-  $cvmfs_yum_kernel_enabled = $cvmfs::params::cvmfs_yum_kernel_enabled,
-  $cvmfs_yum                  = $cvmfs::params::cvmfs_yum,
-  $cvmfs_yum_testing          = $cvmfs::params::cvmfs_yum_testing,
-  $cvmfs_yum_testing_enabled = $cvmfs::params::cvmfs_yum_testing_enabled,
+  $cvmfs_yum_kernel,
+  $cvmfs_yum_kernel_enabled,
+  $cvmfs_yum                 = hiera("cvmfs::cvmfs_yum"),
+  $cvmfs_yum_testing         = hiera("cvmfs::cvmfs_yum_testing"),
+  $cvmfs_yum_testing_enabled = hiera("cvmfs::cvmfs_yum_testing_enabled"),
 )
 {
 

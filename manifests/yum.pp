@@ -20,7 +20,7 @@ class cvmfs::yum (
   $cvmfs_yum_proxy = $cvmfs::cvmfs_yum_proxy,
   $cvmfs_yum_gpgcheck = $cvmfs::cvmfs_yum_gpgcheck,
   $cvmfs_yum_gpgkey = $cvmfs::cvmfs_yum_gpgkey,
-)  inherits cvmfs {
+) {
 
   yumrepo{'cvmfs':
     descr       => "CVMFS yum repository for el${::operatingsystemmajrelease}",

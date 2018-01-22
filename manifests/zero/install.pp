@@ -1,9 +1,10 @@
 #Class: cvmfs::zero::install , desingned
 #to be included from instances of cvmfs::zero
 class cvmfs::zero::install (
-  $cvmfs_version        = $cvmfs::params::cvmfs_version,
-  $cvmfs_kernel_version = $cvmfs::params::cvmfs_kernel_version,
-  $cvmfs_aufs2_version  = $cvmfs::params::cvmfs_aufs2_version,
+  $cvmfs_version        = hiera("cvmfs::cvmfs_version"),
+  $cvmfs_kernel_version = hiera("cvmfs::cvmfs_kernel_version"),
+  $cvmfs_aufs2_version  = hiera("cvmfs::cvmfs_aufs2_version"),
+  $cvmfs_zero_manage_httpd = hiera("cvmfs::zero::cvmfs_zero_manage_httpd"),
 ) {
   include ::cvmfs::zero::yum
 
@@ -26,5 +27,8 @@ class cvmfs::zero::install (
     ensure  => $cvmfs_aufs2_version,
     require => Yumrepo['cvmfs-kernel'],
   }
-  ensure_packages('httpd', { ensure => present, } )
+
+  if ($cvmfs_zero_manage_httpd) {
+    ensure_packages('httpd', { ensure => present, } )
+  }
 }

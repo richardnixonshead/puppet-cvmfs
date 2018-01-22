@@ -3,7 +3,7 @@ class cvmfs::fsck (
   $cvmfs_cache_base = $cvmfs::cvmfs_cache_base,
   $options = '',
   $onreboot = false
-) inherits cvmfs {
+) {
 
   file{'/usr/local/sbin/cvmfs_fsck_cron.sh':
     ensure  => file,

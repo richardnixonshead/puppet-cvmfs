@@ -19,7 +19,7 @@ class cvmfs::config (
   $cvmfs_memcache_size    = $cvmfs::cvmfs_memcache_size,
   $cvmfs_claim_ownership  = $cvmfs::cvmfs_claim_ownership,
   $default_cvmfs_partsize = $cvmfs::default_cvmfs_partsize,
-) inherits cvmfs {
+) {
 
   # If cvmfspartsize fact exists use it, otherwise use a sensible default.
   if getvar(::cvmfspartsize) {

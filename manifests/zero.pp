@@ -18,8 +18,9 @@ define cvmfs::zero(
   $ignore_xdir_hardlinks = false,
   $creator_version = '2.3.0-1',
   $mime_expire = 120,
+  $cvmfs_zero_manage_limits = hiera("cvmfs::zero::cvmfs_zero_manage_limits"),
+  $cvmfs_zero_manage_httpd = hiera("cvmfs::zero::cvmfs_zero_manage_httpd"),
 ) {
-  include ::cvmfs::params
   include ::cvmfs::zero::install
   include ::cvmfs::zero::config
   include ::cvmfs::zero::service
@@ -34,17 +35,19 @@ define cvmfs::zero(
     managehome => true,
     home       => $home,
   }
-  ::limits::entry{"${user}-soft":
-    type   => 'soft',
-    item   => 'nofile',
-    value  => $nofiles,
-    domain => $user,
-  }
-  limits::entry{"${user}-hard":
-    type   => 'hard',
-    item   => 'nofile',
-    value  => $nofiles,
-    domain => $user,
+  if ($cvmfs_zero_manage_limits) {
+    limits::entry{"${user}-soft":
+      type   => 'soft',
+      item   => 'nofile',
+      value  => $nofiles,
+      domain => $user,
+    }
+    limits::entry{"${user}-hard":
+      type   => 'hard',
+      item   => 'nofile',
+      value  => $nofiles,
+      domain => $user,
+    }
   }
 
   file{"/etc/cvmfs/repositories.d/${repo}":
@@ -355,12 +358,15 @@ define cvmfs::zero(
     group  => $group,
   }
 
-  file{"/etc/httpd/conf.d/${repo}.conf":
-    ensure  => file,
-    content => template('cvmfs/zero-httpd.conf.erb'),
-    require => Package['httpd'],
-    notify  => Service['httpd'],
+  if ($cvmfs_zero_manage_httpd) {
+    file{"/etc/httpd/conf.d/${repo}.conf":
+      ensure  => file,
+      content => template('cvmfs/zero-httpd.conf.erb'),
+      require => Package['httpd'],
+      notify  => Service['httpd'],
+    }
   }
+
   mount{"${spool_store}/${repo}/rdonly":
     ensure  => present,
     device  => "cvmfs2#${repo}",
@@ -383,7 +389,7 @@ define cvmfs::zero(
     mode    => '0755',
     content => template('cvmfs/create_script.sh.erb'),
   }
-  # Scrip to generate keys.
+  # Script to generate keys.
   file{"/etc/puppet-cvmfs-scripts/${repo}-genkeys.sh":
     ensure  => file,
     mode    => '0755',
