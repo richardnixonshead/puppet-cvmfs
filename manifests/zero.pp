@@ -18,12 +18,16 @@ define cvmfs::zero(
   $ignore_xdir_hardlinks = false,
   $creator_version = '2.3.0-1',
   $mime_expire = 120,
-  $cvmfs_zero_manage_limits = hiera("cvmfs::zero::cvmfs_zero_manage_limits"),
-  $cvmfs_zero_manage_httpd = hiera("cvmfs::zero::cvmfs_zero_manage_httpd"),
+  $cvmfs_zero_manage_limits = true,
+  $cvmfs_zero_manage_httpd = true,
+  $cvmfs_version        = 'present',
+  $cvmfs_kernel_version = 'present',
+  $cvmfs_aufs2_version  = 'present',
+  $cvmfs_unionfs_type   = 'overlayfs',
 ) {
   include ::cvmfs::zero::install
   include ::cvmfs::zero::config
-  include ::cvmfs::zero::service
+  #include ::cvmfs::zero::service
 
   group{$group:
     gid => $gid,
@@ -63,8 +67,8 @@ define cvmfs::zero(
     content => template('cvmfs/server.conf.erb'),
   }
 
-  # Public repostory
-  file{["${repo_store}/${repo}","${repo_store}/${repo}/data","${repo_store}/${repo}/data/txn"]:
+  # Public repository
+  file{["${repo_store}/${repo}/data","${repo_store}/${repo}/data/txn"]:
     ensure => directory,
     owner  => $user,
     group  => $group,
@@ -352,12 +356,14 @@ define cvmfs::zero(
     group   => $group,
     require => Package['cvmfs-server'],
   }
-  file{["${spool_store}/${repo}/cache","${spool_store}/${repo}/rdonly","${spool_store}/${repo}/scratch","${spool_store}/${repo}/tmp","${spool_store}/${repo}/scratch/current","${spool_store}/${repo}/scratch/wastebin"]:
+  file{["${spool_store}/${repo}/cache","${spool_store}/${repo}/scratch","${spool_store}/${repo}/tmp","${spool_store}/${repo}/scratch/current","${spool_store}/${repo}/scratch/wastebin"]:
     ensure => directory,
     owner  => $user,
     group  => $group,
   }
-
+  file{"${spool_store}/${repo}/rdonly":
+    ensure => directory,
+  }
   if ($cvmfs_zero_manage_httpd) {
     file{"/etc/httpd/conf.d/${repo}.conf":
       ensure  => file,

@@ -38,8 +38,8 @@ CVMFS_NFILES='<%= @cvmfs_nfiles %>'
 <% if @cvmfs_public_key and @cvmfs_public_key != '' -%>
 CVMFS_PUBLIC_KEY='<%= @cvmfs_public_key %>'
 <% end -%>
-<% @cvmfs_force_signing and  if @cvmfs_force_signing != '' -%>
-CVMFS_FORCE_SIGNING='<%= @cvmfs_force_signing %>'
+<% @cvmfs_ignore_signature and if @cvmfs_ignore_signature != '' -%>
+CVMFS_IGNORE_SIGNATURE='<%= @cvmfs_ignore_signature %>'
 <% end -%>
 <% if @cvmfs_syslog_level and  @cvmfs_syslog_level != '' -%>
 CVMFS_SYSLOG_LEVEL='<%= @cvmfs_syslog_level %>'
@@ -56,7 +56,7 @@ CVMFS_MAX_TTL='<%= @cvmfs_max_ttl %>'
 <% if @cvmfs_use_geoapi and @cvmfs_use_geoapi != '' -%>
 CVMFS_USE_GEOAPI='<%= @cvmfs_use_geoapi %>'
 <% end -%>
-<% if @cvmfs_mount_rw and @cmvfs_use_rw != '' -%>
+<% if @cvmfs_mount_rw and @cvmfs_mount_rw != '' -%>
 CVMFS_MOUNT_RW=<%= @cvmfs_mount_rw %>
 <% end -%>
 <% if @cvmfs_follow_redirects -%>

@@ -19,6 +19,22 @@ class cvmfs::config (
   $cvmfs_memcache_size    = $cvmfs::cvmfs_memcache_size,
   $cvmfs_claim_ownership  = $cvmfs::cvmfs_claim_ownership,
   $default_cvmfs_partsize = $cvmfs::default_cvmfs_partsize,
+  $cvmfs_http_proxy       = $cvmfs::cvmfs_http_proxy,
+  $cvmfs_cache_base       = $cvmfs::cvmfs_cache_base,
+  $cvmfs_server_url       = $cvmfs::cvmfs_server_url,
+  $cvmfs_timeout          = $cvmfs::cvmfs_timeout,
+  $cvmfs_timeout_direct   = $cvmfs::cvmfs_timeout_direct,
+  $cvmfs_nfiles           = $cvmfs::cvmfs_nfiles,
+  $cvmfs_public_key       = $cvmfs::cvmfs_public_key,
+  $cvmfs_ignore_signature = $cvmfs::cvmfs_ignore_signature,
+  $cvmfs_syslog_level     = $cvmfs::cvmfs_syslog_level,
+  $cvmfs_tracefile        = $cvmfs::cvmfs_tracefile,
+  $cvmfs_debuglog         = $cvmfs::cvmfs_debuglog,
+  $cvmfs_max_ttl          = $cvmfs::cvmfs_max_ttl,
+  $cvmfs_use_geoapi       = $cvmfs::cvmfs_use_geoapi,
+  $cvmfs_mount_rw         = $cvmfs::cvmfs_mount_rw,
+  $cvmfs_follow_redirects = $cvmfs::cvmfs_follow_redirects,
+  $cvmfs_env_variables    = $cvmfs::cvmfs_env_variables,
 ) {
 
   # If cvmfspartsize fact exists use it, otherwise use a sensible default.

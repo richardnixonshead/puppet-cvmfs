@@ -14,7 +14,7 @@ class cvmfs (
   $cvmfs_timeout,
   $cvmfs_timeout_direct,
   $cvmfs_nfiles,
-  $cvmfs_force_signing,
+  $cvmfs_ignore_signature,
   $cvmfs_syslog_level,
   $cvmfs_tracefile,
   $cvmfs_debuglog,
@@ -36,17 +36,23 @@ class cvmfs (
   $cvmfs_follow_redirects,
   $cvmfs_yum_manage_repo,
   $cvmfs_repo_list,
+  $cvmfs_public_key,
+  $cvmfs_kernel_version,
+  $cvmfs_aufs2_version,
+  $cvmfs_zero_manage_httpd,
+  $cvmfs_yum_kernel,
+  $cvmfs_yum_kernel_enabled,
 ) {
 
   # For now just check os and exit if it untested.
   if $::osfamily == 'RedHat' and $::operatingsystem == 'Fedora' {
      fail('This cvmfs module has not been verified under fedora.')
   } elsif $::osfamily != 'RedHat' {
-     fail('This cvmfs module has not been verified under osfamily other than RedH
+     fail('This cvmfs module has not been verified under osfamily other than RedHat')
   }
 
   # Deprecations
-  if $config_automaster == false {
+  if ! $config_automaster {
     fail('config_automaster set to false is deprecated, please set cvmfs::mount_method explicitly to autofs(the default), mount or none instead.')
   }
 

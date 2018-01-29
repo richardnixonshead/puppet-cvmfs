@@ -15,7 +15,7 @@ cvmfs::cvmfs_memcache_size: ~
 cvmfs::cvmfs_timeout: ''
 cvmfs::cvmfs_timeout_direct: ''
 cvmfs::cvmfs_nfiles: ''
-cvmfs::cvmfs_force_signing: 'yes'
+cvmfs::cvmfs_ignore_signature: ~
 cvmfs::cvmfs_syslog_level: ''
 cvmfs::cvmfs_tracefile: ''
 cvmfs::cvmfs_debuglog: ''
@@ -42,5 +42,5 @@ cvmfs::cvmfs_aufs2_version: 'present'
 cvmfs::cvmfs_yum_kernel: "http://cern.ch/cvmrepo/yum/cvmfs-kernel/EL/${::operatingsystemmajrelease}/${::architecture}"
 cvmfs::cvmfs_yum_kernel_enabled: 1
 cvmfs::one::cvmfs_sync_minute: '*/15'
-cvmfs::zero::cvmfs_zero_manage_limits: true
-cvmfs::zero::cvmfs_zero_manage_httpd: true
+cvmfs::cvmfs_zero_manage_limits: true
+cvmfs::cvmfs_zero_manage_httpd: true

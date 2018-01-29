@@ -1,11 +1,11 @@
 # Class cvmfs::server::yum
 class cvmfs::zero::yum (
-  $cvmfs_yum_kernel           = hiera("cvmfs::cvmfs_yum_kernel"),
-  $cvmfs_yum_kernel_enabled   = hiera("cvmfs::cvmfs_yum_kernel_enabled"),
-  $cvmfs_yum                  = hiera("cvmfs::cvmfs_yum").
-  $cvmfs_yum_testing          = hiera("cvmfs::cvmfs_yum_testing"),
-  $cvmfs_yum_testing_enabled  = hiera("cvmfs::cvmfs_yum_testing_enabled"),
-  $cvmfs_yum_manage_repo      = hiera("cvmfs::cvmfs_yum_manage_repo"),
+  $cvmfs_yum_kernel           = $::cvmfs::cvmfs_yum_kernel,
+  $cvmfs_yum_kernel_enabled   = $::cvmfs::cvmfs_yum_kernel_enabled,
+  $cvmfs_yum                  = $::cvmfs::cvmfs_yum,
+  $cvmfs_yum_testing          = $::cvmfs::cvmfs_yum_testing,
+  $cvmfs_yum_testing_enabled  = $::cvmfs::cvmfs_yum_testing_enabled,
+  $cvmfs_yum_manage_repo      = $::cvmfs::cvmfs_yum_manage_repo,
 ) {
 
   if ($cvmfs_yum_manage_repo) {

@@ -9,6 +9,9 @@ CvmFS clients and servers.
 For general details on CvmFS see
 http://cernvm.cern.ch/portal/filesystem 
 
+## Changes by Sean Crosby
+Reworked the config to remove the params class, and inherit everything via Hiera autolookups. Added a default hiera file, and fixed up a few typos
+
 ## Custom Facts
 The module include one customfacts
 
@@ -83,7 +86,7 @@ cvmfs::mount{'myrepo.example.org':
 * `cvmfs_timeout` cvmfs timeout setting, see params.pp for default.
 * `cvmfs_timeout_direct` cvmfs timeout to direct connections, see params.pp for default.
 * `cvmfs_nfiles` Number of open files, system setting, see params.pp for default.
-* `cvmfs_force_signing` Boolean defaults to true, repositories must be signed.
+* `cvmfs_ignore_signagture` Boolean defaults to false, repositories must be signed.
 * `cvmfs_syslog_level`  Default is in params.pp
 * `cvmfs_tracefile`  Create a tracefile at this location.
 * `cvmfs_debuglog` Create a debug log file at this location.
